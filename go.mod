@@ -1,3 +1,3 @@
-module github.com/janpfeifer/onnxgomlx
+module onnx-gomlx
 
 go 1.23
