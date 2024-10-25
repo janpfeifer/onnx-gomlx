@@ -1,7 +1,7 @@
-// Package ir contains several conversion utilities between ONNX and GoMLX.
+// Package conversion contains several conversion utilities between ONNX and GoMLX.
 //
 // TODO: For now mostly it includes ONNX -> GoMLX. Add the reverse direction translations.
-package ir
+package conversion
 
 import (
 	"github.com/gomlx/gopjrt/dtypes"
@@ -40,5 +40,5 @@ func DTypeOnnxToGomlx(onnxDType protos.TensorProto_DataType) (dtypes.DType, erro
 		return dtypes.Complex128, nil
 	default:
 		return dtypes.InvalidDType, errors.Errorf("unsupported/unknown ONNX data type %v", onnxDType)
+	}
 }
-
