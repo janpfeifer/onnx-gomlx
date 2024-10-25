@@ -4,17 +4,34 @@ import (
 	. "github.com/gomlx/gomlx/graph"
 	"github.com/gomlx/gomlx/ml/context"
 	"github.com/pkg/errors"
+	"google.golang.org/protobuf/proto"
+	"onnx-gomlx/internal/protos"
+	"os"
 )
 
 // Model represents a parsed ONNX file.
 type Model struct {
-	nodes []string
+	Proto protos.ModelProto
 }
 
-// ReadFile parses an ONNX model file into an internal representation that can be used to build a GoMLX graph.
+// ParseONNX parses an ONNX model into an internal representation that can be used to build a GoMLX graph.
+func ParseONNX(contents []byte) (*Model, error) {
+	m := &Model{}
+	err := proto.Unmarshal(contents, &m.Proto)
+	if err != nil {
+		return nil, errors.Wrap(err, "failed to parse ONNX model proto")
+	}
+	return m, nil
+}
+
+// ReadONNXFile parses an ONNX model file into an internal representation that can be used to build a GoMLX graph.
 // Notice any large constant is converted to variables.
-func ReadFile(filePath string) (*Model, error) {
-	return nil, errors.New("Not implemented")
+func ReadONNXFile(filePath string) (*Model, error) {
+	contents, err := os.ReadFile(filePath)
+	if err != nil {
+		return nil, errors.Wrapf(err, "failed to read ONNX model file in %s", filePath)
+	}
+	return ParseONNX(contents)
 }
 
 // Inputs returns a description of the inputs.

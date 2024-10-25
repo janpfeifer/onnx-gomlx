@@ -26,11 +26,11 @@ const (
 )
 
 var protoFiles = []string{
-	"onnx-data.proto",
+	// We use the "onnx-ml.proto3" version of this file. See brief mention here:
+	// https://github.com/onnx/onnx/blob/main/docs/IR.md
 	"onnx-ml.proto",
 	"onnx-operators-ml.proto",
-	"onnx-operators.proto",
-	"onnx.proto",
+	"onnx-data.proto",
 }
 
 // must log.Fatalf if err is not nil.
